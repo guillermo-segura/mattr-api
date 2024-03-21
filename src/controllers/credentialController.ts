@@ -7,7 +7,7 @@ export const issueCredential = async (req: express.Request, res: express.Respons
 
   console.log('[Controller] Data received');
 
-  // VALIDATE DATA
+  // @TODO VALIDATE DATA
   console.log('[Controller] Data validated');
 
   try {
