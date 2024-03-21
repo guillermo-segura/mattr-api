@@ -6,15 +6,16 @@ interface CredentialClaims {
   countryOfResidence: string;
   dateOfBirth: string;
   photo: string;
+  walletDid: string;
 };
 
-module.exports = ({ givenName, email, countryOfResidence, dateOfBirth, photo }: CredentialClaims) => {
-  console.log('[issueCredentialUseCase] called', { givenName, email, countryOfResidence, dateOfBirth, photo });
+module.exports = ({ givenName, email, countryOfResidence, dateOfBirth, photo, walletDid }: CredentialClaims) => {
+  console.log('[issueCredentialUseCase] called');
 
   // CALL REPOSITORY
-  createIssuerDid();
-  createVerifiableCredential();
-  sendMessageToWallet();
+  const issuerDid = createIssuerDid();
+  // const credential = createVerifiableCredential(walletDid, issuerDid);
+  // const message = sendMessageToWallet();
 
   return true;
 };
