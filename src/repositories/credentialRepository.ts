@@ -2,18 +2,22 @@ const { createDid, signWebSemanticCredential, encryptMessage, sendMessage, creat
 
 export const createIssuerDid = async () => {
   console.log('[credentialRepository] createIssuerDid called');
-  return createDid(); 
+  const options = {
+    url: 'mattr.global',
+  };
+  return await createDid('web', options); 
 };
 
-export const createVerifiableCredential = async () => {
+export const createVerifiableCredential = async (subjectId: string, issuerId: string) => {
   console.log('[credentialRepository] createVerifiableCredential called');
-  return signWebSemanticCredential(); 
+  return await signWebSemanticCredential(subjectId, issuerId); 
 };
 
-export const sendMessageToWallet = async () => {
+export const sendMessageToWallet = async (senderDidUrl: string) => {
   console.log('[credentialRepository] sendMessageToWallet called');
-  const encryptedMessage = encryptMessage();
-  return sendMessage(encryptedMessage);  
+  const encryptedMessage = await encryptMessage(senderDidUrl);
+  const to = '';
+  return await sendMessage(to);  
 };
 
 export const getAuthToken = async (clientId: string, clientSecret: string, clientAudience: string) => {
