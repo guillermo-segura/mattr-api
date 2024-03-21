@@ -1,3 +1,27 @@
+export const createApiAuthToken = async () => {
+  console.log('[mattrVIIService] createApiAuthToken called');
+
+  // AXIOS POST {{auth_url}}/oauth/token
+
+  // BODY
+  // const echoPostRequest = {
+  //   url: tokenUrl,
+  //   method: 'POST',
+  //   header: 'Content-Type:application/json',
+  //   body: {
+  //     mode: 'application/json',
+  //     raw: JSON.stringify(
+  //         {
+  //         	client_id: clientId,
+  //         	client_secret: clientSecret,
+  //         	audience: clientAudience,
+  //         	grant_type: 'client_credentials'
+  //         })
+  //   }
+  // };
+  return true;  
+};
+
 export const createDid = async () => {
   console.log('[mattrVIIService] createDid called');
 

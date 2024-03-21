@@ -1,4 +1,4 @@
-const { createDid, signWebSemanticCredential, encryptMessage, sendMessage } = require('../services/mattrVIIService');
+const { createDid, signWebSemanticCredential, encryptMessage, sendMessage, createApiAuthToken } = require('../services/mattrVIIService');
 
 export const createIssuerDid = async () => {
   console.log('[credentialRepository] createIssuerDid called');
@@ -12,6 +12,11 @@ export const createVerifiableCredential = async () => {
 
 export const sendMessageToWallet = async () => {
   console.log('[credentialRepository] sendMessageToWallet called');
-  const encryptedMessage = encryptMessage()
+  const encryptedMessage = encryptMessage();
   return sendMessage(encryptedMessage);  
+};
+
+export const getAuthToken = async () => {
+  console.log('[credentialRepository] getAuthToken called');
+  return createApiAuthToken();  
 };
