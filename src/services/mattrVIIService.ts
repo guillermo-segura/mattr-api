@@ -1,25 +1,22 @@
-export const createApiAuthToken = async () => {
-  console.log('[mattrVIIService] createApiAuthToken called');
+const axios = require('axios');
 
-  // AXIOS POST {{auth_url}}/oauth/token
+export const createApiAuthToken = async (clientId: string, clientSecret: string, clientAudience: string) => {
+  const tokenUrl = `${process.env.AUTH_URL}${process.env.TOKEN_PATH}`;
+  const headers = { 'Content-Type': 'application/json' };
+  const body = {
+    client_id: clientId,
+    client_secret: clientSecret,
+    audience: clientAudience,
+    grant_type: 'client_credentials'
+  };
 
-  // BODY
-  // const echoPostRequest = {
-  //   url: tokenUrl,
-  //   method: 'POST',
-  //   header: 'Content-Type:application/json',
-  //   body: {
-  //     mode: 'application/json',
-  //     raw: JSON.stringify(
-  //         {
-  //         	client_id: clientId,
-  //         	client_secret: clientSecret,
-  //         	audience: clientAudience,
-  //         	grant_type: 'client_credentials'
-  //         })
-  //   }
-  // };
-  return true;  
+  try {
+    const response = await axios.post(tokenUrl, body, { headers });
+    console.log('[mattrVIIService] createApiAuthToken called', response.data);
+    return response.data;  
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 export const createDid = async () => {

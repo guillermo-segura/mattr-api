@@ -16,7 +16,7 @@ export const sendMessageToWallet = async () => {
   return sendMessage(encryptedMessage);  
 };
 
-export const getAuthToken = async () => {
+export const getAuthToken = async (clientId: string, clientSecret: string, clientAudience: string) => {
   console.log('[credentialRepository] getAuthToken called');
-  return createApiAuthToken();  
+  return await createApiAuthToken(clientId, clientSecret, clientAudience);  
 };
