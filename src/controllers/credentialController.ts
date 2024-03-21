@@ -3,7 +3,7 @@ import express = require('express');
 const issueCredentialUseCase = require('../useCases/issueCredentialUseCase');
 
 export const issueCredential = async (req: express.Request, res: express.Response) => {
-  const { givenName, email, countryOfResidence, dateOfBirth, photo } = req.body;
+  const { givenName, email, countryOfResidence, dateOfBirth, photo, walletDid } = req.body;
 
   console.log('[Controller] Data received');
 
@@ -11,7 +11,7 @@ export const issueCredential = async (req: express.Request, res: express.Respons
   console.log('[Controller] Data validated');
 
   try {
-    const credential = issueCredentialUseCase({ givenName, email, countryOfResidence, dateOfBirth, photo });
+    const credential = issueCredentialUseCase({ givenName, email, countryOfResidence, dateOfBirth, photo, walletDid });
     res
       .status(201)
       .json({ data: credential });
