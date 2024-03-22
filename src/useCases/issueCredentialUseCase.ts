@@ -12,6 +12,8 @@ interface CredentialClaims {
 // STEPS SOURCE: https://learn.mattr.global/tutorials/offer/direct/overview
 module.exports = async (subjectDid: string, claims: CredentialClaims) => {
   // STEP 1 - GET THE CREDENTIAL ISSUER
+  // FIXED BAD REQUEST ISSUE THANKS TO LINE 14
+  // https://github.com/mattrglobal/sample-apps/blob/master/implementation-patterns/direct-issuance.ts
   const issuerDid = await getOrCreateKeyDid();
   const issuerId = issuerDid?.did;
 
