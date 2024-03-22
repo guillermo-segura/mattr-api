@@ -40,7 +40,7 @@ module.exports = async (subjectDid: string, claims: CredentialClaims) => {
     if(credential) {
       // REQUEST FROM https://learn.mattr.global/tutorials/offer/direct/encrypt
       const encryptionReq = {
-        senderDidUrl: issuerDid?.didDocument?.keyAgreement?.id,
+        senderDidUrl: issuerDid?.didDocument?.keyAgreement[0]?.id,
         recipientDidUrls: [subjectDid],
         payload: {
           id: credential.id,
