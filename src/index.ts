@@ -1,6 +1,5 @@
 // https://stackoverflow.com/questions/27676884/explicitly-specifying-types-for-express-application-request-response
 import express = require('express');
-import http = require('http');
 
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
@@ -16,8 +15,6 @@ app.use(credentialRoutes);
 
 const PORT = process.env.PORT;
 const URL = process.env.APP_URL;
-
-let server: http.Server | null = null;
 
 app.use('/', credentialRoutes);
 
