@@ -1,4 +1,5 @@
 const { createDid, signWebSemanticCredential, encryptMessage, sendMessage, retrieveDid } = require('../services/mattrVIIService');
+import { CredentialRequest, EncryptionRequest } from '../services/types';
 
 export const getIssuerDid = async (didId: string) => {
   console.log('[credentialRepository] getIssuerDid called');
@@ -13,14 +14,13 @@ export const createIssuerDid = async () => {
   return await createDid('web', options); 
 };
 
-export const createVerifiableCredential = async (subjectId: string, issuerId: string) => {
+export const createVerifiableCredential = async (request: CredentialRequest) => {
   console.log('[credentialRepository] createVerifiableCredential called');
-  return await signWebSemanticCredential(subjectId, issuerId); 
+  return await signWebSemanticCredential(request); 
 };
 
-export const sendMessageToWallet = async (senderDidUrl: string) => {
+export const sendMessageToWallet = async (subjectDid: string, encryptionReq: EncryptionRequest) => {
   console.log('[credentialRepository] sendMessageToWallet called');
-  const encryptedMessage = await encryptMessage(senderDidUrl);
-  const to = '';
-  return await sendMessage(to);  
+  const encryptedJWE = await encryptMessage(encryptionReq);
+  return await sendMessage(subjectDid, encryptedJWE.jwe);  
 };
