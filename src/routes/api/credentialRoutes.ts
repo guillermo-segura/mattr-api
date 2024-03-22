@@ -13,7 +13,7 @@ const validations = [
   body("walletDid").exists().isString().notEmpty(),
 ];
 
-// curl -X POST -H "Content-Type: application/json" -d '{"givenName": "John Doe", "email": "john@doe.com", "countryOfResidence": "New Zealand", "dateOfBirth": "1990-01-01", "photo": "", "walletDid": "did:key:1234"}' http://localhost:3001/api/issue-credential
+// curl -X POST -H "Content-Type: application/json" -d '{"givenName": "John Doe", "email": "john@doe.com", "countryOfResidence": "New Zealand", "dateOfBirth": "1990-01-01", "photo": "", "walletDid": "did:key:z6MkqW5J8VadfM7bYWKAtMrVrZ1JnsuEnPvPiTqmFV3ecVz7"}' http://localhost:3001/api/issue-credential
 router.post('/api/issue-credential', validations, issueCredential);
 
 module.exports = router;
