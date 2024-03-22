@@ -11,8 +11,8 @@ dotenv.config();
 
 const app: express.Application = express();
 app.use(bodyParser.json());
-app.use(credentialRoutes);
 app.use(cors());
+app.use(credentialRoutes);
 
 const PORT = process.env.PORT;
 const URL = process.env.APP_URL;
