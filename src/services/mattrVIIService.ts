@@ -1,18 +1,10 @@
-const axios = require('axios');
+import mattrVIIApi from '../api/mattrVII';
 
-export const createApiAuthToken = async (clientId: string, clientSecret: string, clientAudience: string) => {
-  const url = `${process.env.AUTH_URL}/oauth/token`;
-  const headers = { 'Content-Type': 'application/json' };
-  const body = {
-    client_id: clientId,
-    client_secret: clientSecret,
-    audience: clientAudience,
-    grant_type: 'client_credentials'
-  };
-
+export const retrieveDid = async (didId: string) => {
+  const url = `${process.env.BASE_URL}/core/v1/dids/${didId}`;
   try {
-    const response = await axios.post(url, body, { headers });
-    console.log('[mattrVIIService] createApiAuthToken called', response.data);
+    const response = await mattrVIIApi.get(url);
+    console.log('[mattrVIIService] retrieveDid called', response.data);
     return response.data;  
   } catch (err) {
     console.error(err);
@@ -24,7 +16,7 @@ export const createDid = async (method: 'web' | 'key', options: any) => {
   const body = { method, options };
 
   try {
-    const response = await axios.post(url, body);
+    const response = await mattrVIIApi.post(url, body);
     console.log('[mattrVIIService] createDid called', response.data);
     return response.data;  
   } catch (err) {
@@ -67,7 +59,7 @@ export const signWebSemanticCredential = async (subjectId: string, issuerId: str
   };
 
   try {
-    const response = await axios.post(url, body);
+    const response = await mattrVIIApi.post(url, body);
     console.log('[mattrVIIService] signWebSemanticCredential called', response.data);
     return response.data;  
   } catch (err) {
@@ -95,7 +87,7 @@ export const encryptMessage = async (senderDidUrl: string) => {
   };
 
   try {
-    const response = await axios.post(url, body);
+    const response = await mattrVIIApi.post(url, body);
     console.log('[mattrVIIService] encryptMessage called', response.data);
     return response.data;  
   } catch (err) {
@@ -131,7 +123,7 @@ export const sendMessage = async (to: string) => {
   };
 
   try {
-    const response = await axios.post(url, body);
+    const response = await mattrVIIApi.post(url, body);
     console.log('[mattrVIIService] sendMessage called', response.data);
     return response.data;  
   } catch (err) {
