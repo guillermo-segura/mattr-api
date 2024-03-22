@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.BASE_URL,
+  baseURL: 'https://guillermo-segura-nztybx.vii.au01.mattr.global',
 });
 
 const createApiAuthToken = async (clientId?: string, clientSecret?: string, clientAudience?: string) => {
