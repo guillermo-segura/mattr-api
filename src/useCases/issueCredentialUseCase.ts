@@ -1,4 +1,4 @@
-const { getIssuerDid, createIssuerDid, createVerifiableCredential, sendMessageToWallet } = require('../repositories/credentialRepository');
+const { getOrCreateKeyDid, createVerifiableCredential, sendMessageToWallet } = require('../repositories/credentialRepository');
 
 interface CredentialClaims {
   givenName: string;
@@ -12,8 +12,8 @@ interface CredentialClaims {
 // STEPS SOURCE: https://learn.mattr.global/tutorials/offer/direct/overview
 module.exports = async (subjectDid: string, claims: CredentialClaims) => {
   // STEP 1 - GET THE CREDENTIAL ISSUER
-  const issuerDid = await getIssuerDid('did:web:mattr.global');
-  const issuerId = issuerDid?.didDocument?.id;
+  const issuerDid = await getOrCreateKeyDid();
+  const issuerId = issuerDid?.did;
 
   if (issuerId) {
     const credentialReq = {
@@ -34,13 +34,12 @@ module.exports = async (subjectDid: string, claims: CredentialClaims) => {
     };
 
     // STEP 2 - CREATE A VERIFIABLE CREDENTIAL
-    // @ISSUE: { code: 'BadRequest', message: 'Failed to generate credential' }
-    const credential = createVerifiableCredential(credentialReq);
-
+    const credential = await createVerifiableCredential(credentialReq);
+    
     if(credential) {
       // REQUEST FROM https://learn.mattr.global/tutorials/offer/direct/encrypt
       const encryptionReq = {
-        senderDidUrl: issuerDid?.didDocument?.keyAgreement[0]?.id,
+        senderDidUrl: issuerDid?.localMetadata?.initialDidDocument?.keyAgreement[0]?.id,
         recipientDidUrls: [subjectDid],
         payload: {
           id: credential.id,
@@ -54,7 +53,7 @@ module.exports = async (subjectDid: string, claims: CredentialClaims) => {
       };
   
       // STEP 3 & 4 - ENCRYPT AND SEND THE CREDENTIAL
-      sendMessageToWallet(subjectDid, encryptionReq);
+      await sendMessageToWallet(subjectDid, encryptionReq);
 
       return true;
     }
