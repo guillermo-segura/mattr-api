@@ -43,7 +43,7 @@ export const encryptMessage = async (encryptionReq: EncryptionRequest) => {
 
 export const sendMessage = async (subjectDid: string, message: JWE) => {
   try {
-    const response = await mattrVIIApi.post('/core/v1/messaging/send', { subjectDid, message });
+    const response = await mattrVIIApi.post('/core/v1/messaging/send', { to: subjectDid, message });
     console.log('[mattrVIIService] sendMessage called', response.data);
     return response.data;  
   } catch (err) {
