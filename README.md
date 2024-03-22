@@ -1,6 +1,8 @@
 # MATTR Technical Challenge
 Demo to issue a Personal Verifiable Credential and send it to a MATTR wallet.
 
+![Demo gif](./src//assets/demo.gif)
+
 ## General Structure
 As I have no experience with Node.JS, I've followed some of the conventions I used to use when working with Laravel:
 
