@@ -1,5 +1,5 @@
 # MATTR Technical Challenge
-Demo to issue a Personal Verifiable Credential and send it to a MATTR wallet.
+Demo to issue a Personal Verifiable Credential and send it to a MATTR wallet. [Optional UI challenge repository here](https://github.com/guillermo-segura/mattr-vii-test-fe)
 
 ![Demo gif](./src//assets/demo.gif)
 
@@ -35,7 +35,7 @@ I was blocked for a while trying to sign a certificate using a web DID as issuer
 
 As for the test coverage, I did try to include some basic unit tests but I couldn't mock the asyncronous parts correctly so I've skipped them for now. If by the time of the review they've been added, it means I had some time to dig deeper on why they're not working as expected. I mentioned in our initial catchup that I was travelling to Spain the week of the 25th of March, so that's why I thought it'd be good to give you visibility in the work done so far.
 
-While I was blocked with the problem I mentioned above, I worked on the optional UI challenge: I took some inspiration from the MATTR website and played with TailwindCSS until I got to something simple yet functional. There's many things that could be added to it: error handling, success and error notifications, debounced onChange inputs to prevent unecessary renders, and so on. However, even if there's no deadline, I still wanted to timebox the FE work.
+While I was blocked with the problem I mentioned above, I worked on the [optional UI challenge](https://github.com/guillermo-segura/mattr-vii-test-fe): I took some inspiration from the MATTR website and played with TailwindCSS until I got to something simple yet functional. There's many things that could be added to it: error handling, success and error notifications, debounced onChange inputs to prevent unecessary renders, and so on. However, even if there's no deadline, I still wanted to timebox the FE work.
 
 Before finding a solution for the issue with the web DID, the approach I had in mind was to implement everything as if the response was sucessful, mock some response data if necessary, and cover the whole end-to-end process of issuing and sending a credential to a wallet. Luckily, that's not needed anymore!
 
