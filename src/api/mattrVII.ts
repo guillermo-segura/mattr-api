@@ -5,6 +5,7 @@ const instance = axios.create({
 });
 
 let accessToken: string | null = null;
+let accessTokenExpiry: number | null = null;
 
 const createApiAuthToken = async (clientId?: string, clientSecret?: string, clientAudience?: string) => {
   const url = `${process.env.AUTH_URL}/oauth/token`;
@@ -18,7 +19,10 @@ const createApiAuthToken = async (clientId?: string, clientSecret?: string, clie
 
   try {
     const response = await axios.post(url, body, { headers });
+    const expiryDate = new Date();
+    expiryDate.setSeconds(expiryDate.getSeconds() + response.data.expires_in);
     accessToken =  response.data.access_token;
+    accessTokenExpiry = expiryDate.getTime();
     return accessToken;
   } catch (err) {
     console.error(err);
@@ -27,7 +31,8 @@ const createApiAuthToken = async (clientId?: string, clientSecret?: string, clie
 
 instance.interceptors.request.use(
   async (config) => {
-    if (!accessToken) {
+    const isTokenExpired = accessTokenExpiry && accessTokenExpiry <= (new Date()).getTime();
+    if (!accessToken || isTokenExpired) {
       console.log('Creating API Auth Token. -$0.02');
       try {
         await createApiAuthToken(
