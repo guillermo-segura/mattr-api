@@ -16,8 +16,6 @@ app.use(credentialRoutes);
 const PORT = process.env.PORT;
 const URL = process.env.APP_URL;
 
-app.use('/', credentialRoutes);
-
 app.listen(PORT, async () => {
   console.log(`[SERVER]: Listening at ${URL}:${PORT}`);
 });
